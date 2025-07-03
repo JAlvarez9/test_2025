@@ -1,0 +1,75 @@
+<p>index works!</p>
+
+<button mat-raised-button color="primary" [routerLink]="['/solicitud/create']">Create Solicitud</button>
+
+<table mat-table [dataSource]="solicitudes">
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let emprow; columns: displayedColumns;"></tr>
+
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let solicitud"> {{solicitud.id}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef> Titulo </th>
+        <td mat-cell *matCellDef="let solicitud"> {{solicitud.titulo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let solicitud"> {{solicitud.estado}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="prioridad">
+        <th mat-header-cell *matHeaderCellDef> Prioridad</th>
+        <td mat-cell *matCellDef="let solicitud"> {{solicitud.prioridad}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef> View</th>
+        <td mat-cell *matCellDef="let solicitud"> 
+            <a [routerLink]="['/solicitud/view', solicitud.id]">
+                <button mat-button color="primary">View</button>
+            </a>    
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef> Update</th>
+        <td mat-cell *matCellDef="let solicitud"> 
+            <a [routerLink]="['/solicitud/update', solicitud.id]">
+                <button mat-button color="accent">Update</button>
+            </a>    
+        </td>
+
+    </ng-container>
+    <ng-container matColumnDef="updateEstado">
+        <th mat-header-cell *matHeaderCellDef> Update Estado</th>
+        <td mat-cell *matCellDef="let solicitud"> 
+            <a [routerLink]="['/solicitud/update-estado', solicitud.id]">
+                <button mat-button color="warn">Update Estado</button>
+            </a>    
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="updatePrioridad">
+        <th mat-header-cell *matHeaderCellDef> Update Prioridad</th>
+        <td mat-cell *matCellDef="let solicitud"> 
+            <a [routerLink]="['/solicitud/update-prioridad', solicitud.id]">
+                <button mat-button color="primary">Update Prioridad</button>
+            </a>    
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete</th>
+        <td mat-cell *matCellDef="let solicitud"> 
+            <button mat-button color="warn" (click)="deleteSolicitud(solicitud.id)">Delete</button>
+        </td>
+
+    </ng-container>
+
+
+</table>

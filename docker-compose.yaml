@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend # Puedes darle un nombre específico al contenedor
+    build: ./backend
+    ports:
+      - "5000:8080"
+    depends_on:
+      - db # El backend dependerá de la base de datos
+
+  db:
+    image: container-registry.oracle.com/database/express:latest
+    container_name: db # Puedes darle un nombre específico al contenedor
+    ports:
+      - "1521:1521" # Puerto para la conexión a la base de datos (SQL*Net)
+      - "5500:5500" # Puerto para Oracle APEX y Enterprise Manager (EM Express)
+    environment:
+      # *** ¡IMPORTANTE! Cambia 'your_secure_password' por una contraseña robusta. ***
+      # Esta contraseña se usa para los usuarios SYS, SYSTEM y PDBADMIN.
+      - ORACLE_PWD=password!2204
+      - ORACLE_ALLOW_REMOTE_LOGIN=true # Esto es útil para desarrollo, permite conexiones desde cualquier host
+    volumes:
+      # Esto es opcional pero muy recomendable para persistir los datos de la DB
+      # Si eliminas el contenedor, los datos no se perderán.
+      # Crear un volumen nombrado para persistencia de datos
+      - oracle_data:/opt/oracle/oradata
+
+volumes:
+  oracle_data: # Define el volumen nombrado
+
+
+
+
